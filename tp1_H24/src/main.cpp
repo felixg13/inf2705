@@ -80,15 +80,15 @@ int main(int argc, char* argv[])
     
     // TODO Partie 1: Instancier vos formes ici.
     // ...
-    BasicShapeArrays triangleSimple = BasicShapeArrays::BasicShapeArrays(&VERTICES_DATA_H::triVertices, sizeof(VERTICES_DATA_H::triVertices));
-    BasicShapeArrays squareSimple = BasicShapeArrays::BasicShapeArrays(&VERTICES_DATA_H::squareVertices, sizeof(VERTICES_DATA_H::squareVertices));
-    BasicShapeArrays triangleColored = BasicShapeArrays::BasicShapeArrays(&VERTICES_DATA_H::colorTriVertices, sizeof(VERTICES_DATA_H::colorTriVertices));
-    BasicShapeArrays squareColored = BasicShapeArrays::BasicShapeArrays(&VERTICES_DATA_H::colorSquareVertices, sizeof(VERTICES_DATA_H::colorSquareVertices));
-    BasicShapeMultipleArrays triangleMultiple = BasicShapeMultipleArrays::BasicShapeMultipleArrays(&VERTICES_DATA_H::triVertices, sizeof(VERTICES_DATA_H::triVertices), &onlyColorTriVertices, sizeof(onlyColorTriVertices));
-    BasicShapeElements squareElement = BasicShapeElementsBasicShapeElements(&VERTICES_DATA_H::colorSquareVerticesReduced, sizeof(VERTICES_DATA_H::colorSquareVerticesReduced), &VERTICES_DATA_H::indexes, sizeof(VERTICES_DATA_H::indexes));
+    BasicShapeArrays triangleSimple(VERTICES_DATA_H::triVertices, sizeof(VERTICES_DATA_H::triVertices));
+    BasicShapeArrays squareSimple(VERTICES_DATA_H::squareVertices, sizeof(VERTICES_DATA_H::squareVertices));
+    BasicShapeArrays triangleColored(VERTICES_DATA_H::colorTriVertices, sizeof(VERTICES_DATA_H::colorTriVertices));
+    BasicShapeArrays squareColored(VERTICES_DATA_H::colorSquareVertices, sizeof(VERTICES_DATA_H::colorSquareVertices));
+    BasicShapeMultipleArrays triangleMultiple(VERTICES_DATA_H::triVertices, sizeof(VERTICES_DATA_H::triVertices), onlyColorTriVertices, sizeof(onlyColorTriVertices));
+    BasicShapeElements squareElement(VERTICES_DATA_H::colorSquareVerticesReduced, sizeof(VERTICES_DATA_H::colorSquareVerticesReduced), VERTICES_DATA_H::indexes, sizeof(VERTICES_DATA_H::indexes));
     // TODO Partie 2: Instancier le cube ici.
     // ...
-    BasicShapeElements cube = BasicShapeElementsBasicShapeElements(&VERTICES_DATA_H::cubeVertices, sizeof(VERTICES_DATA_H::cubeVertices), &VERTICES_DATA_H::cubeIndexes, sizeof(VERTICES_DATA_H::cubeIndexes));
+    BasicShapeElements cube(VERTICES_DATA_H::cubeVertices, sizeof(VERTICES_DATA_H::cubeVertices), VERTICES_DATA_H::cubeIndexes, sizeof(VERTICES_DATA_H::cubeIndexes));
 
     
     // TODO Partie 1: Donner une couleur de remplissage aux fonds.
