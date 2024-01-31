@@ -90,19 +90,21 @@ void BasicShapeMultipleArrays::updateColorData(const GLfloat* color, GLsizeiptr 
 {
     // TODO Partie 1: Modifier la totalité des données de couleur
     glBindBuffer(GL_ARRAY_BUFFER, m_colorVbo);
-    glBufferSubData();
+    glBufferSubData(GL_ARRAY_BUFFER,0, colorByteSize, color);
 }
 
 GLfloat* BasicShapeMultipleArrays::mapPosData()
 {
     // TODO Partie 1: Activer le mapping des données de position
     glBindBuffer(GL_ARRAY_BUFFER, m_posVbo);
+    glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 }
 
 void BasicShapeMultipleArrays::unmapPosData()
 {
     // TODO Partie 1: Désactiver le mapping des données de position
     glBindBuffer(GL_ARRAY_BUFFER, m_posVbo);
+    glUnmapBuffer(GL_ARRAY_BUFFER);
 }
 
 void BasicShapeMultipleArrays::draw(GLenum mode, GLsizei count)
