@@ -40,18 +40,38 @@ int main(int argc, char* argv[])
     printGLInfo();
     
     // TODO Partie 1: Instancier les shader programs ici.
-    // ... basic;
+    ShaderProgram basic;
     { // Les accolades vont permettre de détruire le code des shaders plus rapidement
         // Vous devez lire le code des shaders dans "shaders/"
         // avec la fonction "readFile".
-        
+		std::string vertexShaderSource = readFile("shaders/basic.vs.glsl");
+		const char* vSrc = vertexShaderSource.c_str();
+
+        std::string fragmentShaderSource = readFile("shaders/basic.fs.glsl");
+		const char* fSrc = vertexShaderSource.c_str();
         // Vous pouvez par la suite instancier vos shaders, les attacher et les lier
         // au programme.
+        Shader vertexShader(GL_VERTEX_SHADER, vSrc);
+        Shader fragmentShader(GL_FRAGMENT_SHADER, fSrc);
+        basic.attachShader(vertexShader);
+        basic.attachShader(fragmentShader);
+        basic.link();
     }
     
-    // ... color;
+    ShaderProgram color;
     {
-        // ...
+        std::string vertexShaderSource = readFile("shaders/color.vs.glsl");
+		const char* vSrc = vertexShaderSource.c_str();
+
+        std::string fragmentShaderSource = readFile("shaders/color.fs.glsl");
+		const char* fSrc = vertexShaderSource.c_str();
+        // Vous pouvez par la suite instancier vos shaders, les attacher et les lier
+        // au programme.
+        Shader vertexShader(GL_VERTEX_SHADER, vSrc);
+        Shader fragmentShader(GL_FRAGMENT_SHADER, fSrc);
+        color.attachShader(vertexShader);
+        color.attachShader(fragmentShader);
+        color.link();
     }
     
     // TODO Partie 2: Shader program de transformation.
@@ -87,11 +107,11 @@ int main(int argc, char* argv[])
     BasicShapeMultipleArrays triangleMultiple(VERTICES_DATA_H::triVertices, sizeof(VERTICES_DATA_H::triVertices), onlyColorTriVertices, sizeof(onlyColorTriVertices));
     BasicShapeElements squareElement(VERTICES_DATA_H::colorSquareVerticesReduced, sizeof(VERTICES_DATA_H::colorSquareVerticesReduced), VERTICES_DATA_H::indexes, sizeof(VERTICES_DATA_H::indexes));
     // TODO Partie 2: Instancier le cube ici.
-    // ...
     BasicShapeElements cube(VERTICES_DATA_H::cubeVertices, sizeof(VERTICES_DATA_H::cubeVertices), VERTICES_DATA_H::cubeIndexes, sizeof(VERTICES_DATA_H::cubeIndexes));
 
     
     // TODO Partie 1: Donner une couleur de remplissage aux fonds.
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     
     // TODO Partie 2: Activer le depth test.
     
@@ -104,6 +124,7 @@ int main(int argc, char* argv[])
             glViewport(0, 0, w.getWidth(), w.getHeight());
         
         // TODO Partie 1: Nettoyer les tampons appropriées.
+        glClear(GL_COLOR_BUFFER_BIT);
         
         if (w.getKey(Window::Key::T))
         {
@@ -126,6 +147,27 @@ int main(int argc, char* argv[])
         switch (selectShape)
         {
             // ...
+            case 0:
+                basic.use();
+                break;
+            case 1: 
+                basic.use();
+                break;
+            case 2:
+                color.use();
+                break;
+            case 3:
+                color.use();
+                break;
+            case 4: 
+                color.use();
+                break;
+            case 5: 
+                color.use();
+                break;
+            case 6:
+                color.use();
+                break;
         }
         
         // TODO Partie 2: Calcul des matrices et envoyer une matrice résultante mvp au shader.
@@ -139,7 +181,6 @@ int main(int argc, char* argv[])
         // TODO Partie 1: Dessiner la forme sélectionnée.
         switch (selectShape)
         {
-            // ...
             case 0:
                 triangleSimple.BasicShapeArrays::draw(GL_TRIANGLES, 1);
                 break;
