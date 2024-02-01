@@ -2,7 +2,7 @@
 #define VERTICES_DATA_H
 
 const GLfloat triVertices[] = {
-    // TODO Partie 1: Définir les coordonnées d'un triangle
+    // DONE Partie 1: Définir les coordonnées d'un triangle
     // en considérant le type de l'entrée du vertex shader.
     -0.5F, -0.5F, 0.0F,
      0.0F,  0.5F, 0.0F,
@@ -10,7 +10,7 @@ const GLfloat triVertices[] = {
 };
 
 const GLfloat squareVertices[] = {
-    // TODO Partie 1: Définir les coordonnées d'un carré
+    // DONE Partie 1: Définir les coordonnées d'un carré
     // fait de deux triangles en considérant le type de 
 	// l'entrée du vertex shader.
     -0.5f, -0.5f, 0.0f,
@@ -23,7 +23,7 @@ const GLfloat squareVertices[] = {
 };
 
 const GLfloat colorTriVertices[] = {
-    // TODO Partie 1: Définir les coordonnées d'un triangle
+    // DONE Partie 1: Définir les coordonnées d'un triangle
     // avec les attributs de position et couleur entrelacés
     // en considérant le type des entrées du vertex shader.
     -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -32,7 +32,7 @@ const GLfloat colorTriVertices[] = {
 };
 
 const GLfloat colorSquareVertices[] = {
-    // TODO Partie 1: Définir les coordonnées d'un carré
+    // DONE Partie 1: Définir les coordonnées d'un carré
     // fait de deux triangles avec les attributs de 
     // position et couleur entrelacés en considérant le type 
     // des entrées du vertex shader.
@@ -47,7 +47,7 @@ const GLfloat colorSquareVertices[] = {
 
 
 const GLfloat colorSquareVerticesReduced[] = {
-    // TODO Partie 1: Définir les coordonnées d'un carré
+    // DONE Partie 1: Définir les coordonnées d'un carré
     // fait de deux triangles avec les attributs de 
     // position et couleur entrelacés en considérant le type 
     // des entrées du vertex shader. Il devrait y avoir
@@ -60,7 +60,7 @@ const GLfloat colorSquareVerticesReduced[] = {
      0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f
 };
 const GLubyte indexes[] = {
-    // TODO Partie 1: Définir les indexes pour générer un
+    // DONE Partie 1: Définir les indexes pour générer un
     // carré en réutilisant certaines vertices.
     0, 1, 2,
     1, 3, 2

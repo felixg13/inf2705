@@ -39,20 +39,19 @@ int main(int argc, char* argv[])
     
     printGLInfo();
     
-    // TODO Partie 1: Instancier les shader programs ici.
+    // DONE Partie 1: Instancier les shader programs ici.
     ShaderProgram basic;
     { // Les accolades vont permettre de détruire le code des shaders plus rapidement
         // Vous devez lire le code des shaders dans "shaders/"
         // avec la fonction "readFile".
 		std::string vertexShaderSource = readFile("shaders/basic.vs.glsl");
-		const char* vSrc = vertexShaderSource.c_str();
-
         std::string fragmentShaderSource = readFile("shaders/basic.fs.glsl");
-		const char* fSrc = vertexShaderSource.c_str();
+
         // Vous pouvez par la suite instancier vos shaders, les attacher et les lier
         // au programme.
-        Shader vertexShader(GL_VERTEX_SHADER, vSrc);
-        Shader fragmentShader(GL_FRAGMENT_SHADER, fSrc);
+        Shader vertexShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
+        Shader fragmentShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
+
         basic.attachShader(vertexShader);
         basic.attachShader(fragmentShader);
         basic.link();
@@ -61,25 +60,29 @@ int main(int argc, char* argv[])
     ShaderProgram color;
     {
         std::string vertexShaderSource = readFile("shaders/color.vs.glsl");
-		const char* vSrc = vertexShaderSource.c_str();
-
         std::string fragmentShaderSource = readFile("shaders/color.fs.glsl");
-		const char* fSrc = vertexShaderSource.c_str();
         // Vous pouvez par la suite instancier vos shaders, les attacher et les lier
         // au programme.
-        Shader vertexShader(GL_VERTEX_SHADER, vSrc);
-        Shader fragmentShader(GL_FRAGMENT_SHADER, fSrc);
+        Shader vertexShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
+        Shader fragmentShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
         color.attachShader(vertexShader);
         color.attachShader(fragmentShader);
         color.link();
     }
     
-    // TODO Partie 2: Shader program de transformation.
-    // ... transform;
-    // ... location;
-    {
-        // ...
-    }
+    // DONE Partie 2: Shader program de transformation.
+    ShaderProgram transform;
+    // {
+    //     std::string vertexShaderSource = readFile("shaders/transform.vs.glsl");
+    //     Shader vertexShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
+
+    //     std::string fragmentShaderSource = readFile("shaders/transform.fs.glsl");
+    //     Shader fragmentShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
+
+    //     transform.attachShader(vertexShader);
+    //     transform.attachShader(fragmentShader);
+    //     transform.link();
+    // }
     
     // Variables pour la mise à jour, ne pas modifier.
     float cx = 0, cy = 0;
@@ -98,7 +101,7 @@ int main(int argc, char* argv[])
         0.0F, 0.0F, 1.0F,
     };
     
-    // TODO Partie 1: Instancier vos formes ici.
+    // DONE Partie 1: Instancier vos formes ici.
     // ...
     BasicShapeArrays triangleSimple(VERTICES_DATA_H::triVertices, sizeof(VERTICES_DATA_H::triVertices));
     BasicShapeArrays squareSimple(VERTICES_DATA_H::squareVertices, sizeof(VERTICES_DATA_H::squareVertices));
@@ -106,14 +109,15 @@ int main(int argc, char* argv[])
     BasicShapeArrays squareColored(VERTICES_DATA_H::colorSquareVertices, sizeof(VERTICES_DATA_H::colorSquareVertices));
     BasicShapeMultipleArrays triangleMultiple(VERTICES_DATA_H::triVertices, sizeof(VERTICES_DATA_H::triVertices), onlyColorTriVertices, sizeof(onlyColorTriVertices));
     BasicShapeElements squareElement(VERTICES_DATA_H::colorSquareVerticesReduced, sizeof(VERTICES_DATA_H::colorSquareVerticesReduced), VERTICES_DATA_H::indexes, sizeof(VERTICES_DATA_H::indexes));
-    // TODO Partie 2: Instancier le cube ici.
+    // DONE Partie 2: Instancier le cube ici.
     BasicShapeElements cube(VERTICES_DATA_H::cubeVertices, sizeof(VERTICES_DATA_H::cubeVertices), VERTICES_DATA_H::cubeIndexes, sizeof(VERTICES_DATA_H::cubeIndexes));
 
     
-    // TODO Partie 1: Donner une couleur de remplissage aux fonds.
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    // DONE Partie 1: Donner une couleur de remplissage aux fonds.
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     
-    // TODO Partie 2: Activer le depth test.
+    // DONE Partie 2: Activer le depth test.
+    glEnable(GL_DEPTH_TEST);
     
     
     int selectShape = 0;
@@ -123,7 +127,7 @@ int main(int argc, char* argv[])
         if (w.shouldResize())
             glViewport(0, 0, w.getWidth(), w.getHeight());
         
-        // TODO Partie 1: Nettoyer les tampons appropriées.
+        // DONE Partie 1: Nettoyer les tampons appropriées.
         glClear(GL_COLOR_BUFFER_BIT);
         
         if (w.getKey(Window::Key::T))
@@ -142,7 +146,7 @@ int main(int argc, char* argv[])
         //*/
         
         
-        // TODO Partie 1: Utiliser le bon shader programme selon la forme.
+        // DONE Partie 1: Utiliser le bon shader programme selon la forme.
         // N'hésiter pas à utiliser le fallthrough du switch case.
         switch (selectShape)
         {
@@ -153,21 +157,21 @@ int main(int argc, char* argv[])
             case 1: 
                 basic.use();
                 break;
-            case 2:
-                color.use();
-                break;
-            case 3:
-                color.use();
-                break;
-            case 4: 
-                color.use();
-                break;
-            case 5: 
-                color.use();
-                break;
-            case 6:
-                color.use();
-                break;
+            // case 2:
+            //     color.use();
+            //     break;
+            // case 3:
+            //     color.use();
+            //     break;
+            // case 4: 
+            //     color.use();
+            //     break;
+            // case 5: 
+            //     color.use();
+            //     break;
+            // case 6:
+            //     color.use();
+            //     break;
         }
         
         // TODO Partie 2: Calcul des matrices et envoyer une matrice résultante mvp au shader.
@@ -178,7 +182,7 @@ int main(int argc, char* argv[])
             // glm::mat4 matrix;
         }
         
-        // TODO Partie 1: Dessiner la forme sélectionnée.
+        // DONE Partie 1: Dessiner la forme sélectionnée.
         switch (selectShape)
         {
             case 0:
