@@ -72,17 +72,17 @@ int main(int argc, char* argv[])
     
     // DONE Partie 2: Shader program de transformation.
     ShaderProgram transform;
-    // {
-    //     std::string vertexShaderSource = readFile("shaders/transform.vs.glsl");
-    //     Shader vertexShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
+    {
+        std::string vertexShaderSource = readFile("shaders/transform.vs.glsl");
+        Shader vertexShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
 
-    //     std::string fragmentShaderSource = readFile("shaders/transform.fs.glsl");
-    //     Shader fragmentShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
+        std::string fragmentShaderSource = readFile("shaders/transform.fs.glsl");
+        Shader fragmentShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
 
-    //     transform.attachShader(vertexShader);
-    //     transform.attachShader(fragmentShader);
-    //     transform.link();
-    // }
+        transform.attachShader(vertexShader);
+        transform.attachShader(fragmentShader);
+        transform.link();
+    }
     
     // Variables pour la mise à jour, ne pas modifier.
     float cx = 0, cy = 0;
@@ -103,18 +103,36 @@ int main(int argc, char* argv[])
     
     // DONE Partie 1: Instancier vos formes ici.
     // ...
-    BasicShapeArrays triangleSimple(VERTICES_DATA_H::triVertices, sizeof(VERTICES_DATA_H::triVertices));
-    BasicShapeArrays squareSimple(VERTICES_DATA_H::squareVertices, sizeof(VERTICES_DATA_H::squareVertices));
-    BasicShapeArrays triangleColored(VERTICES_DATA_H::colorTriVertices, sizeof(VERTICES_DATA_H::colorTriVertices));
-    BasicShapeArrays squareColored(VERTICES_DATA_H::colorSquareVertices, sizeof(VERTICES_DATA_H::colorSquareVertices));
-    BasicShapeMultipleArrays triangleMultiple(VERTICES_DATA_H::triVertices, sizeof(VERTICES_DATA_H::triVertices), onlyColorTriVertices, sizeof(onlyColorTriVertices));
-    BasicShapeElements squareElement(VERTICES_DATA_H::colorSquareVerticesReduced, sizeof(VERTICES_DATA_H::colorSquareVerticesReduced), VERTICES_DATA_H::indexes, sizeof(VERTICES_DATA_H::indexes));
+    BasicShapeArrays triangleSimple(triVertices, sizeof(triVertices));
+    triangleSimple.enableAttribute(0, 3, 0, 0);
+
+    BasicShapeArrays squareSimple(squareVertices, sizeof(squareVertices));
+    squareSimple.enableAttribute(0, 3, sizeof(GLfloat)*3, 0);
+
+    BasicShapeArrays triangleColored(colorTriVertices, sizeof(colorTriVertices));
+    triangleColored.enableAttribute(0, 3, sizeof(GLfloat)*6, 0);
+    triangleColored.enableAttribute(1, 3, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
+
+    BasicShapeArrays squareColored(colorSquareVertices, sizeof(colorSquareVertices));
+    squareColored.enableAttribute(0, 3, sizeof(GLfloat)*6, 0);
+    squareColored.enableAttribute(1, 3, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
+
+    BasicShapeMultipleArrays triangleMultiple(triVertices, sizeof(triVertices), onlyColorTriVertices, sizeof(onlyColorTriVertices));
+    triangleMultiple.enablePosAttribute(0, 3, sizeof(GLfloat)*3, 0);
+    triangleMultiple.enableColorAttribute(1, 3, sizeof(GLfloat)*3, 0);
+
+    BasicShapeElements squareElement(colorSquareVerticesReduced, sizeof(colorSquareVerticesReduced), indexes, sizeof(indexes));
+    squareElement.enableAttribute(0, 3, sizeof(GLfloat)*6, 0);
+    squareElement.enableAttribute(1, 3, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
+
     // DONE Partie 2: Instancier le cube ici.
-    BasicShapeElements cube(VERTICES_DATA_H::cubeVertices, sizeof(VERTICES_DATA_H::cubeVertices), VERTICES_DATA_H::cubeIndexes, sizeof(VERTICES_DATA_H::cubeIndexes));
+    BasicShapeElements cube(cubeVertices, sizeof(cubeVertices), cubeIndexes, sizeof(cubeIndexes));
+    cube.enableAttribute(0, 3, sizeof(GLfloat)*6, 0);
+    cube.enableAttribute(1, 3, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
 
     
     // DONE Partie 1: Donner une couleur de remplissage aux fonds.
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     
     // DONE Partie 2: Activer le depth test.
     glEnable(GL_DEPTH_TEST);
@@ -157,21 +175,21 @@ int main(int argc, char* argv[])
             case 1: 
                 basic.use();
                 break;
-            // case 2:
-            //     color.use();
-            //     break;
-            // case 3:
-            //     color.use();
-            //     break;
-            // case 4: 
-            //     color.use();
-            //     break;
-            // case 5: 
-            //     color.use();
-            //     break;
-            // case 6:
-            //     color.use();
-            //     break;
+            case 2:
+                color.use();
+                break;
+            case 3:
+                color.use();
+                break;
+            case 4: 
+                color.use();
+                break;
+            case 5: 
+                color.use();
+                break;
+            case 6:
+                color.use();
+                break;
         }
         
         // TODO Partie 2: Calcul des matrices et envoyer une matrice résultante mvp au shader.
@@ -186,25 +204,26 @@ int main(int argc, char* argv[])
         switch (selectShape)
         {
             case 0:
-                triangleSimple.BasicShapeArrays::draw(GL_TRIANGLES, 1);
+                //checkGLError(__FILE__, __LINE__);
+                triangleSimple.draw(GL_TRIANGLES, 3);
                 break;
             case 1: 
-                squareSimple.BasicShapeArrays::draw(GL_TRIANGLES, 1);
+                squareSimple.draw(GL_TRIANGLES, 4);
                 break;
             case 2:
-                triangleColored.BasicShapeArrays::draw(GL_TRIANGLES, 1);
+                triangleColored.draw(GL_TRIANGLES, 3);
                 break;
             case 3:
-                squareColored.BasicShapeArrays::draw(GL_TRIANGLES, 1);
+                squareColored.draw(GL_TRIANGLES, 4);
                 break;
             case 4: 
-                triangleMultiple.BasicShapeMultipleArrays::draw(GL_TRIANGLES, 1);
+                triangleMultiple.draw(GL_TRIANGLES, 3);
                 break;
             case 5: 
-                squareElement.BasicShapeElements::draw(GL_TRIANGLES, 1);
+                squareElement.draw(GL_TRIANGLES, 4);
                 break;
             case 6:
-                cube.BasicShapeElements::draw(GL_TRIANGLES, 1);
+                cube.draw(GL_TRIANGLES, 8);
                 break;
         }
         
