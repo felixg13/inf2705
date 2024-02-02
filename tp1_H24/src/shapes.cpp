@@ -73,8 +73,8 @@ void BasicShapeMultipleArrays::enablePosAttribute(GLuint index, GLint size, GLsi
     // DONE Partie 1: Activer l'attribut de position et l'attacher correctement au state du vao.
     glBindVertexArray(m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, m_posVbo);
-    glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE,stride,(void*)offset);
     glEnableVertexAttribArray(index);
+    glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE,stride,(void*)offset);
 }
 
 void BasicShapeMultipleArrays::enableColorAttribute(GLuint index, GLint size, GLsizei stride, GLsizeiptr offset)
@@ -82,8 +82,8 @@ void BasicShapeMultipleArrays::enableColorAttribute(GLuint index, GLint size, GL
     // DONE Partie 1: Activer l'attribut de couleur et l'attacher correctement au state du vao.
     glBindVertexArray(m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, m_colorVbo);
-    glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE,stride,(void*)offset);
     glEnableVertexAttribArray(index);
+    glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE,stride,(void*)offset);
 }
 
 void BasicShapeMultipleArrays::updateColorData(const GLfloat* color, GLsizeiptr colorByteSize)
@@ -153,5 +153,5 @@ void BasicShapeElements::draw(GLenum mode, GLsizei count)
     // DONE Partie 1: Dessiner la forme avec le ebo.
         glBindVertexArray(m_vao);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
-        glDrawArrays(mode,0,count);
+        glDrawElements(mode,count, GL_UNSIGNED_BYTE, 0);
 }

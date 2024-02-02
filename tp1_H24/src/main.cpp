@@ -102,33 +102,33 @@ int main(int argc, char* argv[])
     };
     
     // DONE Partie 1: Instancier vos formes ici.
-    // ...
-    BasicShapeArrays triangleSimple(triVertices, sizeof(triVertices));
-    triangleSimple.enableAttribute(0, 3, 0, 0);
+    // BasicShapeArrays triangleSimple(triVertices, sizeof(triVertices));
+    // triangleSimple.enableAttribute(0, 3, 0, 0);
 
-    BasicShapeArrays squareSimple(squareVertices, sizeof(squareVertices));
-    squareSimple.enableAttribute(0, 3, sizeof(GLfloat)*3, 0);
+    // BasicShapeArrays squareSimple(squareVertices, sizeof(squareVertices));
+    // squareSimple.enableAttribute(0, 3, 0, 0);
 
-    BasicShapeArrays triangleColored(colorTriVertices, sizeof(colorTriVertices));
-    triangleColored.enableAttribute(0, 3, sizeof(GLfloat)*6, 0);
-    triangleColored.enableAttribute(1, 3, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
+    // BasicShapeArrays triangleColored(colorTriVertices, sizeof(colorTriVertices));
+    // triangleColored.enableAttribute(0, 3, sizeof(GLfloat)*6, 0);
+    // triangleColored.enableAttribute(1, 3, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
 
-    BasicShapeArrays squareColored(colorSquareVertices, sizeof(colorSquareVertices));
-    squareColored.enableAttribute(0, 3, sizeof(GLfloat)*6, 0);
-    squareColored.enableAttribute(1, 3, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
+    // BasicShapeArrays squareColored(colorSquareVertices, sizeof(colorSquareVertices));
+    // squareColored.enableAttribute(0, 3, sizeof(GLfloat)*6, 0);
+    // squareColored.enableAttribute(1, 3, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
 
-    BasicShapeMultipleArrays triangleMultiple(triVertices, sizeof(triVertices), onlyColorTriVertices, sizeof(onlyColorTriVertices));
-    triangleMultiple.enablePosAttribute(0, 3, sizeof(GLfloat)*3, 0);
-    triangleMultiple.enableColorAttribute(1, 3, sizeof(GLfloat)*3, 0);
+    // BasicShapeMultipleArrays triangleMultiple(triVertices, sizeof(triVertices), onlyColorTriVertices, sizeof(onlyColorTriVertices));
+    // triangleMultiple.enablePosAttribute(0, 3, 0, 0);
+    // triangleMultiple.enableColorAttribute(1, 3, 0, 0);
+
 
     BasicShapeElements squareElement(colorSquareVerticesReduced, sizeof(colorSquareVerticesReduced), indexes, sizeof(indexes));
     squareElement.enableAttribute(0, 3, sizeof(GLfloat)*6, 0);
     squareElement.enableAttribute(1, 3, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
 
-    // DONE Partie 2: Instancier le cube ici.
-    BasicShapeElements cube(cubeVertices, sizeof(cubeVertices), cubeIndexes, sizeof(cubeIndexes));
-    cube.enableAttribute(0, 3, sizeof(GLfloat)*6, 0);
-    cube.enableAttribute(1, 3, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
+    // // DONE Partie 2: Instancier le cube ici.
+    // BasicShapeElements cube(cubeVertices, sizeof(cubeVertices), cubeIndexes, sizeof(cubeIndexes));
+    // cube.enableAttribute(0, 3, sizeof(GLfloat)*6, 0);
+    // cube.enableAttribute(1, 3, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
 
     
     // DONE Partie 1: Donner une couleur de remplissage aux fonds.
@@ -146,7 +146,7 @@ int main(int argc, char* argv[])
             glViewport(0, 0, w.getWidth(), w.getHeight());
         
         // DONE Partie 1: Nettoyer les tampons appropriées.
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         if (w.getKey(Window::Key::T))
         {
@@ -154,21 +154,19 @@ int main(int argc, char* argv[])
             std::cout << "Selected shape: " << selectShape << std::endl;
         }
         
-        // TODO Partie 1: Mise à jour des données du triangle
-        /*
-        changeRGB(&onlyColorTriVertices[0]);
-        changeRGB(&onlyColorTriVertices[3]);
-        changeRGB(&onlyColorTriVertices[6]);
-        
-        changePos(posPtr, cx, cy, dx, dy);
-        //*/
-        
-        
+        // DONE Partie 1: Mise à jour des données du triangle
+        // changeRGB(&onlyColorTriVertices[0]);
+        // changeRGB(&onlyColorTriVertices[3]);
+        // changeRGB(&onlyColorTriVertices[6]);
+        // triangleMultiple.updateColorData(onlyColorTriVertices, sizeof(onlyColorTriVertices));
+        // GLfloat* posPtr = triangleMultiple.mapPosData();
+        // changePos(posPtr, cx, cy, dx, dy);
+        // triangleMultiple.unmapPosData();
+
         // DONE Partie 1: Utiliser le bon shader programme selon la forme.
         // N'hésiter pas à utiliser le fallthrough du switch case.
         switch (selectShape)
         {
-            // ...
             case 0:
                 basic.use();
                 break;
@@ -188,7 +186,7 @@ int main(int argc, char* argv[])
                 color.use();
                 break;
             case 6:
-                color.use();
+                transform.use();
                 break;
         }
         
@@ -204,26 +202,25 @@ int main(int argc, char* argv[])
         switch (selectShape)
         {
             case 0:
-                //checkGLError(__FILE__, __LINE__);
-                triangleSimple.draw(GL_TRIANGLES, 3);
+                //triangleSimple.draw(GL_TRIANGLES, 3);
                 break;
             case 1: 
-                squareSimple.draw(GL_TRIANGLES, 4);
+                //squareSimple.draw(GL_TRIANGLES, 6);
                 break;
             case 2:
-                triangleColored.draw(GL_TRIANGLES, 3);
+                //triangleColored.draw(GL_TRIANGLES, 3);
                 break;
             case 3:
-                squareColored.draw(GL_TRIANGLES, 4);
+                squareColored.draw(GL_TRIANGLES, 6);
                 break;
             case 4: 
-                triangleMultiple.draw(GL_TRIANGLES, 3);
+                //triangleMultiple.draw(GL_TRIANGLES, 3);
                 break;
             case 5: 
-                squareElement.draw(GL_TRIANGLES, 4);
+                squareElement.draw(GL_TRIANGLES, 6);
                 break;
             case 6:
-                cube.draw(GL_TRIANGLES, 8);
+                //cube.draw(GL_TRIANGLES, 36);
                 break;
         }
         

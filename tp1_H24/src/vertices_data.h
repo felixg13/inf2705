@@ -37,12 +37,12 @@ const GLfloat colorSquareVertices[] = {
     // position et couleur entrelacés en considérant le type 
     // des entrées du vertex shader.
     -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-    -0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+     0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+    -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-    -0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f,
-     0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f,
-     0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f
+    -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+     0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+     0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f
 };
 
 
@@ -55,9 +55,7 @@ const GLfloat colorSquareVerticesReduced[] = {
     -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
      0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
     -0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
-
-     0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f,
-     0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f
+     0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f
 };
 const GLubyte indexes[] = {
     // DONE Partie 1: Définir les indexes pour générer un
